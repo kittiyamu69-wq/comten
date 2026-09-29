@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-box">
+  <h1>จัดการคำนวณค่าใช้จ่ายสำหรับกลุ่ม</h1>
+  <p class="lead">เว็บสามารถหารเงินในกรณีที่มีคนออกมากกว่า 1 คน และสรุปว่าใครต้องรับเงินเท่าไหร่และจ่ายเท่าไหร่</p>
+  <a class="btn" href="{{ url_for('page', name='page1') }}">เริ่มสร้างกลุ่ม</a>
+</section>
+
+<section class="cards">
+  <a class="card" href="{{ url_for('page', name='page1') }}">
+    <span class="card-kicker">Step 1</span>
+    <span class="card-title">สร้างกลุ่ม</span>
+  </a>
+  <a class="card" href="{{ url_for('page', name='page2') }}">
+    <span class="card-kicker">Step 2</span>
+    <span class="card-title">เพิ่มค่าใช้จ่าย</span>
+  </a>
+  <a class="card" href="{{ url_for('page', name='page3') }}">
+    <span class="card-kicker">Step 3</span>
+    <span class="card-title">สรุปค่าใช้จ่าย</span>
+  </a>
+</section>
+{% endblock %}

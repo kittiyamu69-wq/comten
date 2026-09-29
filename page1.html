@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>สร้างกลุ่ม</h1>
+  <p class="lead">ใส่ชื่อกลุ่มและรายชื่อสมาชิกเพื่อเริ่มใช้ระบบคำนวณค่าใช้จ่ายแบบกลุ่ม</p>
+
+  <form method="post">
+    <div class="field">
+      <label for="group_name">ชื่อกลุ่ม</label>
+      <input id="group_name" name="group_name" type="text" value="{{ group_name or group.name }}" placeholder="เช่น กลุ่มเที่ยวทะเล" required>
+    </div>
+
+    <div class="field">
+      <label for="member_names">ชื่อสมาชิก</label>
+      <textarea id="member_names" name="member_names" rows="6" placeholder="ใส่ชื่อคนในกลุ่มคนละบรรทัด&#10;นิว&#10;กาย&#10;เฟิร์น">{% for member in members %}{{ member.name }}{% if not loop.last %}
+{% endif %}{% endfor %}</textarea>
+    </div>
+
+    <div class="field">
+      <button type="submit" class="btn full">สร้างกลุ่ม</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

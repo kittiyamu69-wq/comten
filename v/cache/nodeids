@@ -1,0 +1,13 @@
+[
+  "test_pages.py::test_create_group_redirects_to_page2",
+  "test_pages.py::test_expense_amount_must_match_total_payer_amounts",
+  "test_pages.py::test_expense_form_supports_multiple_payers",
+  "test_pages.py::test_group_creation_form_is_visible",
+  "test_pages.py::test_page2_supports_group_split_inputs",
+  "test_pages.py::test_page_loads[page1]",
+  "test_pages.py::test_page_loads[page2]",
+  "test_pages.py::test_page_loads[page3]",
+  "test_pages.py::test_page_loads[page4]",
+  "test_pages.py::test_team_page_filled",
+  "test_pages.py::test_valid_expense_redirects_to_page3"
+]

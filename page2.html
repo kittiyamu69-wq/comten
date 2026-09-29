@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>เพิ่มค่าใช้จ่าย</h1>
+  <p class="lead">กรอกข้อมูลค่าใช้จ่ายของกลุ่ม {{ group_name }}</p>
+
+  {% if error_msg %}
+  <div class="banner" style="background:#fff1f2;border-color:#f7bfd3;color:#9f1239;">{{ error_msg }}</div>
+  {% endif %}
+
+  <form method="post">
+    <div class="field">
+      <label for="expense_name">ชื่อรายการ</label>
+      <input id="expense_name" name="expense_name" type="text" value="{{ query.get('expense_name', default_name) }}" required>
+    </div>
+
+    <div class="field">
+      <label for="amount">จำนวนเงินรวม</label>
+      <input id="amount" name="amount" type="number" min="0" step="0.01" value="{{ query.get('amount', default_amount) }}" class="{{ 'field-error' if error_msg }}" required>
+    </div>
+
+    <div class="field">
+      <label>คนที่ร่วมจ่าย</label>
+      <div class="card-grid">
+        {% for name in members %}
+        {% set safe_name = name|replace(' ', '_') %}
+        <label class="member-choice">
+          <input type="checkbox" name="eater_{{ safe_name }}" {% if query.get('eater_' + safe_name) %}checked{% endif %}>
+          {{ name }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="field">
+      <label>คนที่ออกเงิน</label>
+      <div class="card-grid">
+        {% for name in members %}
+        {% set safe_name = name|replace(' ', '_') %}
+        <div class="payer-block">
+          <label class="member-choice">
+            <input type="checkbox" name="payer_{{ safe_name }}" {% if query.get('payer_' + safe_name) %}checked{% endif %}>
+            {{ name }}
+          </label>
+          <label class="note">เงินที่แต่ละคนออก</label>
+          <input type="number" name="payer_amount_{{ safe_name }}" min="0" step="0.01" placeholder="เงินที่ออก" class="payer-amount {{ 'field-error' if error_msg and query.get('payer_amount_' + safe_name) else '' }}" value="{{ query.get('payer_amount_' + safe_name, '') }}">
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="field">
+      <button type="submit" class="btn full">บันทึกค่าใช้จ่าย</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

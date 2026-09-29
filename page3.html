@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>สรุปค่าใช้จ่าย</h1>
+  <p class="lead">ภาพรวมยอดที่แต่ละคนจ่ายและต้องจ่ายอยู่</p>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="label">จำนวนคน</div>
+      <div class="value">{{ member_count }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" style="margin-top: 18px;">
+  <h2>รายการค่าใช้จ่าย</h2>
+  {% if expense_summary %}
+  <table>
+    <thead>
+      <tr>
+        <th>ชื่อรายการ</th>
+        <th class="num">จำนวนเงิน</th>
+        <th>จัดการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in expense_summary %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td class="num">฿{{ '%.2f'|format(item.amount) }}</td>
+        <td>
+          <form method="post" style="margin: 0;">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="delete_index" value="{{ loop.index0 }}">
+            <button type="submit" class="btn danger small">ลบรายการ</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">ยังไม่มีรายการค่าใช้จ่าย</div>
+  {% endif %}
+</section>
+
+<section class="panel" style="margin-top: 18px;">
+  <h2>ยอดคงเหลือรายคน</h2>
+  {% if members %}
+  <table>
+    <thead>
+      <tr>
+        <th>ชื่อ</th>
+        <th class="num">จ่ายแล้ว</th>
+        <th class="num">ควรจ่าย</th>
+        <th class="num">สุทธิ</th>
+        <th>สถานะ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for member in members %}
+      <tr>
+        <td>{{ member.name }}</td>
+        <td class="num">฿{{ '%.2f'|format(member.paid) }}</td>
+        <td class="num">฿{{ '%.2f'|format(member.due) }}</td>
+        <td class="num">{% if member.net >= 0 %}+{% endif %}฿{{ '%.2f'|format(member.net) }}</td>
+        <td><span class="badge {% if member.net > 0 %}good{% elif member.net < 0 %}bad{% else %}gold{% endif %}">{{ member.status }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">ยังไม่มีประวัติค่าใช้จ่าย</div>
+  {% endif %}
+</section>
+
+<section class="panel" style="margin-top: 18px;">
+  <h2>รายละเอียดค่าใช้จ่ายรายคน</h2>
+  {% if members %}
+  {% for member in members %}
+  <div class="panel" style="margin-bottom: 12px; padding: 12px; background: #f8fafc;">
+    <strong>{{ member.name }}</strong>
+    {% if member.expense_list %}
+    <ul style="margin: 8px 0 0 18px;">
+      {% for item in member.expense_list %}
+      <li>{{ item.name }}: ฿{{ '%.2f'|format(item.amount) }} ({{ item.type }})</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty" style="margin-top: 8px;">ไม่มีรายการค่าใช้จ่าย</div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="empty">ยังไม่มีประวัติค่าใช้จ่าย</div>
+  {% endif %}
+</section>
+
+<section class="panel" style="margin-top: 18px;">
+  <h2>คืนเงินให้</h2>
+  {% if settlements %}
+  <ul>
+    {% for item in settlements %}
+    <li>{{ item.from }} ควรคืนเงินให้ {{ item.to }} จำนวน {{ '%.2f'|format(item.amount) }} บาท สำหรับ {{ item.reason }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty">ยังไม่มีรายการคืนเงิน</div>
+  {% endif %}
+</section>
+{% endblock %}
