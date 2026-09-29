@@ -1,0 +1,34 @@
+{
+  "group": {
+    "name": "comten",
+    "section": "Section 01",
+    "topic": "จัดการค่าใช้จ่ายกลุ่ม",
+    "description": "ระบบคำนวณค่าใช้จ่ายแบบกลุ่มที่ทุกคนเห็นได้ชัดและชำระง่าย"
+  },
+  "members": [
+    {
+      "name": "นางสาวกิตติยา ม่วงอยู่",
+      "id": "69130040302",
+      "role": "Project Lead (PM), QA / Test\n(check.batest)",
+      "task": "Page1"
+    },
+    {
+      "name": "นายกมล เกษียร",
+      "id": "69130040049",
+      "role": "Backend Dev (Python), Frontend\nDev (HTML/CSS)",
+      "task": "Page2"
+    },
+    {
+      "name": "นายกิตติศักดิ์ ดวงแก้ว",
+      "id": "69130040326",
+      "role": "Frontend Dev (HTML/CSS), Backend\nDev (Python)",
+      "task": "home + team page"
+    },
+    {
+      "name": "นางสาวกัญญภัส รัตนพิมพ์",
+      "id": "69130040195",
+      "role": "Data Engineer (data.json + models),\nDevOps (Git/GitHubsetup)",
+      "task": "Page3"
+    }
+  ]
+}
